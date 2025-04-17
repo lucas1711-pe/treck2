@@ -7,11 +7,19 @@ on:
 
 jobs:
   build:
+<<<<<<< HEAD
+=======
+    name: Build Debug APK
+>>>>>>> 0ab2f4721ca9975a0e985e684b03072eb7fba94e
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout code
+<<<<<<< HEAD
         uses: actions/checkout@v3  # Versão mais recente
+=======
+        uses: actions/checkout@v4
+>>>>>>> 0ab2f4721ca9975a0e985e684b03072eb7fba94e
 
       - name: Set up JDK 17
         uses: actions/setup-java@v2
@@ -19,6 +27,28 @@ jobs:
           distribution: 'temurin'
           java-version: '17'
 
+<<<<<<< HEAD
       - name: Build APK
         run: ./gradlew assembleDebug  # Certifique-se de que esse comando esteja correto para seu projeto
+=======
+      - name: Cache Gradle dependencies
+        uses: actions/cache@v3
+        with:
+          path: ~/.gradle/caches
+          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*') }}
+          restore-keys: |
+            ${{ runner.os }}-gradle-
+
+      - name: Make gradlew executable
+        run: chmod +x ./gradlew
+
+      - name: Build APK
+        run: ./gradlew assembleDebug
+
+      - name: Upload APK as artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: app-debug
+          path: app/build/outputs/apk/debug/app-debug.apk
+>>>>>>> 0ab2f4721ca9975a0e985e684b03072eb7fba94e
 
